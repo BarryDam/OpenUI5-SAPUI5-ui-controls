@@ -62,7 +62,6 @@ sap.ui.define(
 				$OverlayIcon.hide();
 			},
 
-			_Icon: null,
 			renderer: function(oRm,oControl){
 				var bPressable			= oControl.hasListeners("press"),
 					sBackgroundColor	= oControl.getBackgroundColor(),
@@ -73,7 +72,6 @@ sap.ui.define(
 						color : oControl.getColor()
 					}),
 					bShowIcon			= (oControl.getShowOnHover() === false && oControl.getEnabledAndVisible());
-				this._Icon = oIcon;
 				// set the height and with to 17px if there is an background color set
 				// this is needed so that the bg will be funny round
 				if (sBackgroundColor) {
