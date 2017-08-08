@@ -64,6 +64,7 @@ sap.ui.define(
 
 			renderer: function(oRm,oControl){
 				var bPressable			= oControl.hasListeners("press"),
+					bPointerClass		= (bPressable && oControl.getEnabledAndVisible()),
 					sBackgroundColor	= oControl.getBackgroundColor(),
 					sBGColorCSS			= "",
 					sTooltip			= oControl.getTooltip(),
@@ -83,7 +84,7 @@ sap.ui.define(
 					oIcon.setTooltip(sTooltip);
 				}
 				// Set the mouse hover style when it's clickable
-				if (bPressable) {
+				if (bPointerClass) {
 					oIcon.addStyleClass("sapUiIconPointer");
 				}
 				// Icon Positions
@@ -107,7 +108,7 @@ sap.ui.define(
 					sBGColorCSS = "background-color:"+sBackgroundColor+";padding:5px;border-radius:20px;";
 				}
 				// Write the control
-				oRm.write('<div'+((oControl.getEnabledAndVisible() && sTooltip)?' title="'+sTooltip+'"':'')+' class="customOverlayIcon sapUiIconPointer" style="display:table;position:relative;"');
+				oRm.write('<div'+((oControl.getEnabledAndVisible() && sTooltip)?' title="'+sTooltip+'"':'')+' class="customOverlayIcon'+((bPointerClass)?" sapUiIconPointer":"")+'" style="display:table;position:relative;"');
 				oRm.writeControlData(oControl);
 				oRm.write(">");
 					oRm.write('<div'+((oControl.getEnabledAndVisible() && sTooltip)?' title="'+sTooltip+'"':'')+' data-overlayicon="true" style="position:absolute;'+((bShowIcon) ? "" : "display:none;" )+'z-index:2;'+sPositionCss+'">');
@@ -118,7 +119,7 @@ sap.ui.define(
 					oRm.write('<div'+((oControl.getEnabledAndVisible() && sTooltip)?' title="'+sTooltip+'"':'')+' style="z-index:1">');
 						var aIds = [];
 						$(oControl.getContent()).each(function(){
-							if (bPressable) {
+							if (bPointerClass) {
 								this.addStyleClass("sapUiIconPointer");								
 							}
 							oRm.renderControl(this);
